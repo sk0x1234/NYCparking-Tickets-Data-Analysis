@@ -2,10 +2,10 @@
 
 
 
-Nnode 
+## Nnode 
 
 
-core-site.xml
+#### core-site.xml
 ```
 <configuration>
  <property>
@@ -15,3 +15,48 @@ core-site.xml
 
 </configuration>
 ```
+
+#### mapred-site.xml
+```
+
+<configuration>
+
+     <property>
+       <name>mapreduce.framework.name</name>
+       <value>yarn</value>
+     </property>
+	
+</configuration>
+
+```
+#### yarn-site.xml
+```
+<property>
+   <name>yarn.nodemanager.aux-services</name>
+   <value>mapreduce_shuffle</value>
+ </property>
+
+```
+
+#### hdfs-site.xml
+```
+<property>
+    <name>dfs.replication</name>
+     <value>2</value>
+</property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+	      <value>/home/ubuntu/hadoop/hadoop_data/hdfs/namenode</value>
+     </property>
+     
+      <property>
+        <name>dfs.datanode.data.dir</name>
+	       <value>/home/ubuntu/hadoop/hadoop_data/hdfs/datanode</value>
+     </property>
+
+```
+
+
+
+
+
