@@ -1,37 +1,24 @@
-## Welcome to GitHub Pages
+##NYCparking-Tickets-Data-Analysis
+### cloud computing AWS project CS-643 NJIT-2019-Spring
 
-You can use the [editor on GitHub](https://github.com/sk0x1234/NYCparking-Tickets-Data-Analysis/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+####namnode 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+```
+$jps
+2210 NameNode
+3368 Jps
+3117 RunJar
+2750 ResourceManager
+2511 SecondaryNameNode
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+#### Dnodes 1,2,3,4
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/sk0x1234/NYCparking-Tickets-Data-Analysis/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```
+1921 DataNode
+2097 NodeManager
+2300 Jps
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+```
