@@ -1,5 +1,5 @@
 ##NYCparking-Tickets-Data-Analysis
-### cloud computing AWS project CS-643 NJIT-2019-Spring
+### cloud computing AWS project CS-643 NJIT-2019-Sprin
 
 ####namnode 
 
@@ -12,11 +12,8 @@ $jps
 2511 SecondaryNameNode
 
 ```
-#### Nnode struck on 
-![GitHub Logo](/2019-12-08-170032_1624x900_scrot.png)
 
-#### Nnode struck on 
-![GitHub Logo](/2019-12-08-170224_1791x332_scrot.png)
+
 
 
 #### Dnodes 1,2,3,4
@@ -27,3 +24,4 @@ $jps
 2300 Jps
 
 ```
+
