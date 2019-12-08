@@ -6,7 +6,7 @@ Nnode
 
 
 core-site.xml
-'''
+```
 <configuration>
  <property>
          <name>fs.defaultFS</name>
@@ -14,4 +14,4 @@ core-site.xml
   </property>
 
 </configuration>
-'''
+```
