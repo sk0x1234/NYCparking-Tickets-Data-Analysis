@@ -28,7 +28,9 @@ public class TopPeriods
     job1.setReducerClass(Reducer1.class);
     job1.setMapOutputKeyClass(Text.class);
     job1.setMapOutputValueClass(IntWritable.class);
-    FileInputFormat.addInputPath(job1, new Path(args[0]));
+    FileInputFormat.addInputPath(job1, new Path(args[0])); 
+    if (hdfs.exists("temp_output"))
+      hdfs.delete("temp_output", true);
     FileOutputFormat.setOutputPath(job1, new Path("temp_output"));
     job1.waitForCompletion(true);
     
