@@ -35,7 +35,7 @@ public class TotalViolations
     FileInputFormat.addInputPath(job1, new Path(args[0]));
     if (hdfs.exists("temp_output"))
       hdfs.delete("temp_output", true);
-    FileOutputFormat.setOutputPath(job1, new Path("temp_output"));
+    FileOutputFormat.setOutputPath(job1, new Path("/user/ubuntu/temp_output"));
     job1.waitForCompletion(true);
     
     Configuration config2 = new Configuration();
