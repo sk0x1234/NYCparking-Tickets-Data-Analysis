@@ -1,0 +1,8 @@
+
+#work split 
+
+Srinath koilakonda ( sk2589@njit.edu )  :  AWS cluster setup , running , collection results, logs, Debug,  Q1 , Q2 , preperation of slides.
+
+Ritisha thakar ( rt383@njit.edu   )   :   cluster configuration, Debug, logs , working on Q2 , Q3  , Data Plots , Preperation of slides.  
+                                                                     
+Jain Saumya    ( sj634@njit.edu )  : cluster configuration, dedug, logs , working on  Q3 ,Q4 , Data Plots , Preperation of slides.

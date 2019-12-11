@@ -1,0 +1,170 @@
+#################################################################
+##                                                             ##       
+##                  Cluster Configuration                      ##
+##                                                             ##
+#################################################################
+
+/*
+ *  Configure Master node VM to access other slave nodes without password (Passphrase less)
+ */
+
+1. Create ~/.ssh/config on Master node with following contents:
+
+Host namenode
+  HostName nnode_public_dns 
+  User ubuntu
+  IdentityFile ~/.ssh/pem_key_filename
+Host dnode1
+  HostName datanode_public_dns  
+  User ubuntu
+  IdentityFile ~/.ssh/pem_key_filename
+ Host dnode2
+  HostName datanode_public_dns  
+  User ubuntu
+  IdentityFile ~/.ssh/pem_key_filename
+ Host dnode3
+  HostName datanode_public_dns  
+  User ubuntu
+  IdentityFile ~/.ssh/pem_key_filename
+
+2. Copy the .pem file (EC2 Keypair) to namenode:~/.ssh directory
+
+3. Execute following commands on Master node:
+
+   ssh-keygen -f ~/.ssh/id_rsa -t rsa -P ""
+   cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+   cat ~/.ssh/id_rsa.pub | ssh dnode1 'cat >> ~/.ssh/authorized_keys'
+   cat ~/.ssh/id_rsa.pub | ssh dnode2 'cat >> ~/.ssh/authorized_keys'
+   cat ~/.ssh/id_rsa.pub | ssh dnode3 'cat >> ~/.ssh/authorized_keys'
+   cat ~/.ssh/id_rsa.pub | ssh dnode4 'cat >> ~/.ssh/authorized_keys'
+
+4. Try ssh dnode1, should connect to the datanode.
+
+NOTE: If using multiple slave nodes do the datanode part for each slaves.
+
+/*
+ *  Java, Hadoop installation on Master and Slave Nodes
+ */
+
+1. Install oracle-jdk-8:
+ $ sudo apt-get update
+ $ sudo apt-get install openjdk-8-jdk
+
+2. Download and Install hadoop-3.2.1:
+  $	wget http://apache.cs.utah.edu/hadoop/common/stable/hadoop-3.2.1.tar.gz
+  $  sudo tar zxvf hadoop-3.1.2.tar.gz // rename to hadoop
+  $ sudo mv hadoop-3.2.1 hadoop
+
+3. Set Environment Variables:
+
+   $ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+
+in .bashrc && source .bashrc or reboot //
+
+  $  export HADOOP_HOME=/home/ubuntu/hadoop
+
+4. Hadoop Configurations common on all nodes
+
+   (i) $HADOOP_CONF_DIR/hadoop-env.sh
+
+        export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+
+   (ii) $HADOOP_CONF_DIR/core-site.xml
+
+       <configuration>
+       <property>
+         <name>fs.defaultFS</name>
+         <value>hdfs://namenode_private_IP:9000</value>
+       </property>
+       </configuration>
+
+   (iii) $HADOOP_CONF_DIR/mapred-site.xml
+
+     <configuration>
+     <property>
+       <name>mapreduce.jobtracker.address</name>
+       <value>namenode_private-IP:54311</value>
+     </property>
+     <property>
+       <name>mapreduce.framework.name</name>
+       <value>yarn</value>
+     </property>
+     </configuration>
+
+5. Master node Specific Configurations
+
+
+   (ii) $HADOOP_CONF_DIR/hdfs-site.xml
+
+      <configuration>
+      <property>
+        <name>dfs.replication</name>
+        <value>2</value>
+      </property>
+      <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///home/ubuntu/hadoop/hadoop_data/hdfs/namenode</value>
+      </property>
+      <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///home/ubuntu/hadoop/hadoop_data/hdfs/datanode</value>
+      </property>
+      </configuration>
+
+   (iii) $HADOOP_CONF_DIR/workers
+		
+		list of datenodes ip.
+
+         datanode1_private-IP
+         datanode2_private_IP
+         datanode3_public_IP
+ 
+   (iv) Create namenode and datanode directories
+`
+         sudo mkdir -p $HADOOP_HOME/hadoop_data/hdfs/namenode
+         sudo mkdir -p $HADOOP_HOME/hadoop_data/hdfs/datanode
+         sudo chown -R ubuntu $HADOOP_HOME
+
+6. Slave node Specific Configurations
+
+   (a) $HADOOP_CONF_DIR/hdfs-site.xml
+
+        <configuration>
+        <property>
+          <name>dfs.replication</name>
+          <value>2</value>
+        </property>
+        <property>
+          <name>dfs.namenode.name.dir</name>
+          <value>file:///home/ubuntu/hadoop/hadoop_data/hdfs/namenode</value>
+        </property>
+        <property>
+          <name>dfs.datanode.data.dir</name>
+          <value>file:///home/ubuntu/hadoop/hadoop_data/hdfs/datanode</value>
+        </property>
+        </configuration>
+ 
+   (b) Create datanode directory
+`  
+         sudo mkdir -p $HADOOP_HOME/hadoop_data/hdfs/datanode
+         sudo chown -R ubuntu $HADOOP_HOME
+
+
+7. Start Hadoop Cluster
+
+   hdfs namenode -format              // needed everytime if you add new dnode or any errors. check the logs on each datanodes. ~/hadoop/logs/*.log 
+
+   $HADOOP_HOME/sbin/start-dfs.sh
+   $HADOOP_HOME/sbin/stop-dfs.sh
+
+
+8. Hadoop 4 nodes and it's mapping
+
+    Names                       *Private IP         
+
+    nnode                 		172.31.11.21     	
+    dnode1                		172.31.1.17       
+    dnode2                		172.31.10.222      	
+    dnode3                  	172.31.26.229    	
+    dnode4                  	172.31.21.237     	
+
