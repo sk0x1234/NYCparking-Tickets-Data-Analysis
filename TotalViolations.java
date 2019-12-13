@@ -65,7 +65,7 @@ public class TotalViolations
       {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy").withLocale(Locale.US);
         LocalDate date = LocalDate.parse(issueDate, formatter);
-        if ((date.getYear() >= 2013) && (date.getYear() <= 2017))
+        if ((date.getYear() >= 2015) && (date.getYear() <= 2017))
         {
           String month = date.getMonth().getDisplayName(TextStyle.SHORT, Locale.US) + " " + date.getYear();
           c.write(new Text(month), new IntWritable(1));
